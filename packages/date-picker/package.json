@@ -1,5 +1,5 @@
 {
-  "name": "h-date-picker",
+  "name": "hk-date-picker",
   "description": "",
   "version": "0.0.3",
   "main": "dist/cjs/index.js",
@@ -10,5 +10,5 @@
   },
   "keywords": [],
   "license": "MIT",
-  "gitHead": "c5f1238288d84270444d841094b95f70c367557a"
+  "gitHead": "48da0ff901b9fa803aaa17d400a944dd5b59e4a1"
 }
