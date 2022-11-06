@@ -1,7 +1,7 @@
 {
-  "name": "date-picker",
-  "version": "0.0.3",
+  "name": "h-date-picker",
   "description": "",
+  "version": "0.0.0",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
   "scripts": {
@@ -11,7 +11,6 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
-    "lodash": "3"
   },
   "gitHead": "930f550a1a0da8370aa81ab36274b6d5d281dbf8"
 }
