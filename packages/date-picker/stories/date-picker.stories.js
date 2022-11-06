@@ -1,13 +1,13 @@
-import DatePicker from '../'
+import HkDatePicker from '../'
 
 export default {
-  title: 'DatePicker',
-  component: DatePicker
+  title: 'HkDatePicker',
+  component: HkDatePicker
 }
 
 export const month = () => ({
-  components: { DatePicker },
-  template: '<DatePicker   />',
+  components: { HkDatePicker },
+  template: '<HkDatePicker   />',
   data() {
     return {
       date: ''

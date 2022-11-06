@@ -1,7 +1,7 @@
-import DatePicker from './src/date-picker.vue'
+import HkDatePicker from './src/date-picker.vue'
 
-DatePicker.install = Vue => {
-  Vue.component(DatePicker.name, DatePicker)
+HkDatePicker.install = Vue => {
+  Vue.component(HkDatePicker.name, HkDatePicker)
 }
 
-export default DatePicker
+export default HkDatePicker

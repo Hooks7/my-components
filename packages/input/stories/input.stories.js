@@ -1,13 +1,13 @@
-import HInput from '../'
+import HkInput from '../'
 
 export default {
-  title: 'HInput',
-  component: HInput
+  title: 'HkInput',
+  component: HkInput
 }
 
 export const Text = () => ({
-  components: { HInput },
-  template: '<h-input v-model="value"></h-input>',
+  components: { HkInput },
+  template: '<hk-input v-model="value"></hk-input>',
   data () {
     return {
       value: 'admin'
@@ -16,8 +16,8 @@ export const Text = () => ({
 })
 
 export const Password = () => ({
-  components: { HInput },
-  template: '<h-input type="password" v-model="value"></h-input>',
+  components: { HkInput },
+  template: '<hk-input type="password" v-model="value"></hk-input>',
   data () {
     return {
       value: 'admin'

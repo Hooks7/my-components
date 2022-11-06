@@ -1,7 +1,7 @@
-import HInput from './src/input.vue'
+import HkInput from './src/input.vue'
 
-HInput.install = Vue => {
-  Vue.component(HInput.name, HInput)
+HkInput.install = Vue => {
+  Vue.component(HkInput.name, HkInput)
 }
 
-export default HInput
+export default HkInput
