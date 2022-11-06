@@ -7,7 +7,7 @@ export default {
 
 export const month = () => ({
   components: { DatePicker },
-  template: '<DatePicker   ></DatePicker>',
+  template: '<DatePicker   />',
   data() {
     return {
       date: ''
