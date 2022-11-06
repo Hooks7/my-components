@@ -1,7 +1,7 @@
 <template>
   <div>
-    <DatePicker v-model="value" type="month" placeholder="选择月">
-    </DatePicker>
+    <!-- 只支持month 类型  不支持多选 months -->
+    <DatePicker v-model="date" type="month" placeholder="选择月" />
   </div>
 </template>
 
@@ -12,15 +12,18 @@ import Vue from "vue";
 Vue.use(ElementUI);
 import DatePicker from "../components/date-picker/src/picker/date-picker";
 export default {
-  name: "HKDatePicker",
+  name: "HkDatePicker",
   components: { DatePicker },
+  props: ["value"],
   data() {
     return {
-      value: "",
+      date: "",
     };
+  },
+  watch: {
+    date(val) {
+      this.$emit("input", val);
+    },
   },
 };
 </script>
-
-<style>
-</style>
