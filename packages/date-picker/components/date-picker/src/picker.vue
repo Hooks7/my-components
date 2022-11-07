@@ -20,7 +20,7 @@
     @focus="handleFocus"
     @keydown.native="handleKeydown"
     :value="displayValue"
-    @input="(value) => (userInput = value)"
+    @input="(value) => changeVal(value)"
     @change="handleChange"
     @mouseenter.native="handleMouseEnter"
     @mouseleave.native="showClose = false"
@@ -485,14 +485,7 @@ export default {
       },
     },
 
-    myParsedValue: {
-      immediate: true,
-      handler(val) {
-        if (this.picker) {
-          this.picker.value = val;
-        }
-      },
-    },
+
 
     defaultValue(val) {
       // NOTE: should eventually move to jsx style picker + panel ?
@@ -586,6 +579,9 @@ export default {
         return this.parsedValue;
       }
 
+
+
+
       let formattedValue = formatAsFormatAndType(
         this.parsedValue,
         this.format,
@@ -612,6 +608,9 @@ export default {
     },
 
     parsedValue() {
+      // console.log(this.value,Object.keys(this.value))
+
+
       if (!this.value) return this.value; // component value is not set
       if (this.type === "time-select") return this.value; // time-select does not require parsing, this might change in next major version
 
@@ -621,7 +620,7 @@ export default {
         !(this.value instanceof Date) &&
         !(this.value instanceof Array)
       ) {
-        return this.value;
+        return  this.value;
       }
 
       const valueIsDateObject =
@@ -697,6 +696,13 @@ export default {
   },
 
   methods: {
+
+    changeVal(value){
+      // console.log(value)
+      // this.$emit('input',value)
+      this.userInput =  value;
+    },
+
     focus() {
       if (!this.ranged) {
         this.$refs.reference.focus();
@@ -767,10 +773,17 @@ export default {
 
     handleChange() {
       if (this.userInput) {
-        const value = this.parseString(this.displayValue);
+        let value;
+        if (this.displayValue.includes("-13")) {
+          value = this.displayValue;
+        } else {
+          value = this.parseString(this.displayValue);
+        }
+
         if (value) {
           this.picker.value = value;
-          if (this.isValidValue(value)) {
+          console.log(this.isValidValue(value))
+          if (this.isValidValue(value) || value.includes("-13")) {
             this.emitInput(value);
             this.userInput = null;
           }
@@ -907,6 +920,14 @@ export default {
 
       // Enter
       if (keyCode === 13) {
+        if (this.userInput.includes("-13")) {
+          this.handleChange();
+          this.pickerVisible = this.picker.visible = false;
+          this.blur();
+
+          return;
+        }
+
         if (
           this.userInput === "" ||
           this.isValidValue(this.parseString(this.displayValue))

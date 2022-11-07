@@ -173,7 +173,11 @@
               @click="myHandleMonthPick"
               class="h-body__right"
               :class="{
-                'h-body__right_active': value && !(value instanceof Date),
+                'h-body__right_active':
+                  value &&
+                  !(value instanceof Date) &&
+                  value.indexOf(-13) === 4 &&
+                  value.includes(year),
               }"
             >
               <span> 13th month </span>
@@ -241,10 +245,10 @@ import Clickoutside from "element-ui/src/utils/clickoutside";
 import Locale from "element-ui/src/mixins/locale";
 import ElInput from "element-ui/packages/input";
 import ElButton from "element-ui/packages/button";
-import TimePicker from "./time";
-import YearTable from "../basic/year-table";
-import MonthTable from "../basic/month-table";
-import DateTable from "../basic/date-table";
+import TimePicker from "./time.vue";
+import YearTable from "../basic/year-table.vue";
+import MonthTable from "../basic/month-table.vue";
+import DateTable from "../basic/date-table.vue";
 
 export default {
   mixins: [Locale],
@@ -269,6 +273,9 @@ export default {
       if (this.selectionMode === "years" && this.value) return;
       if (isDate(val)) {
         this.date = new Date(val);
+      } else if (!(val instanceof Date) && val.indexOf("-13") === 4) {
+        // 根据当前字符串年份初始化时间对象
+        this.date = new Date(val.split("-")[0]);
       } else {
         this.date = this.getDefaultValue();
       }
@@ -755,6 +762,7 @@ export default {
         }
         return startYear + " - " + (startYear + 9);
       }
+
       return this.year + " " + yearTranslation;
     },
 
