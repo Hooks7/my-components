@@ -273,7 +273,7 @@ export default {
       if (this.selectionMode === "years" && this.value) return;
       if (isDate(val)) {
         this.date = new Date(val);
-      } else if (!(val instanceof Date) && val.indexOf("-13") === 4) {
+      } else if (!(val instanceof Date) && val && val.indexOf("-13") === 4) {
         // 根据当前字符串年份初始化时间对象
         this.date = new Date(val.split("-")[0]);
       } else {

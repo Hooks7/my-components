@@ -485,8 +485,6 @@ export default {
       },
     },
 
-
-
     defaultValue(val) {
       // NOTE: should eventually move to jsx style picker + panel ?
       if (this.picker) {
@@ -506,7 +504,7 @@ export default {
 
   computed: {
     ranged() {
-      return this.type.indexOf("range") > -1;
+      return this.type && this.type.indexOf("range") > -1;
     },
 
     reference() {
@@ -579,9 +577,6 @@ export default {
         return this.parsedValue;
       }
 
-
-
-
       let formattedValue = formatAsFormatAndType(
         this.parsedValue,
         this.format,
@@ -610,7 +605,6 @@ export default {
     parsedValue() {
       // console.log(this.value,Object.keys(this.value))
 
-
       if (!this.value) return this.value; // component value is not set
       if (this.type === "time-select") return this.value; // time-select does not require parsing, this might change in next major version
 
@@ -620,7 +614,7 @@ export default {
         !(this.value instanceof Date) &&
         !(this.value instanceof Array)
       ) {
-        return  this.value;
+        return this.value;
       }
 
       const valueIsDateObject =
@@ -696,11 +690,10 @@ export default {
   },
 
   methods: {
-
-    changeVal(value){
+    changeVal(value) {
       // console.log(value)
       // this.$emit('input',value)
-      this.userInput =  value;
+      this.userInput = value;
     },
 
     focus() {
@@ -782,7 +775,6 @@ export default {
 
         if (value) {
           this.picker.value = value;
-          console.log(this.isValidValue(value))
           if (this.isValidValue(value) || value.includes("-13")) {
             this.emitInput(value);
             this.userInput = null;

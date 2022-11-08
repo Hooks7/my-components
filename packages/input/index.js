@@ -1,4 +1,4 @@
-import HkInput from './src/input'
+import HkInput from './src/input.vue'
 
 HkInput.install = Vue => {
   Vue.component(HkInput.name, HkInput)

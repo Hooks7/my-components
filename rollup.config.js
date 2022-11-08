@@ -5,11 +5,14 @@ import vue from 'rollup-plugin-vue'
 import postcss from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
 // 公共插件配置
 const plugins = [
+  resolve(),
+  commonjs(),
   vue({
     // Dynamically inject css as a <style> tag
     css: true,
