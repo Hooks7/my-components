@@ -13,7 +13,8 @@
     "build-storybook": "build-storybook",
     "lerna": "lerna publish",
     "build:prod": "cross-env NODE_ENV=production rollup -c",
-    "build:dev": "cross-env NODE_ENV=development rollup -c"
+    "build:dev": "cross-env NODE_ENV=development rollup -c",
+    "clean": "lerna clean"
   },
   "keywords": [],
   "author": "",
@@ -47,6 +48,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "dependencies": {
+    "@rollup/plugin-babel": "^6.0.4",
     "vue": "^2.6.11"
   }
 }

@@ -1,46 +1,45 @@
-import fs from 'fs'
-import path from 'path'
-import json from '@rollup/plugin-json'
-import vue from 'rollup-plugin-vue'
-import postcss from 'rollup-plugin-postcss'
-import { terser } from 'rollup-plugin-terser'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
+import fs from 'fs';
+import path from 'path';
+import json from '@rollup/plugin-json';
+import vue from 'rollup-plugin-vue';
+import postcss from 'rollup-plugin-postcss';
+import { terser } from 'rollup-plugin-terser';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import babel from '@rollup/plugin-babel';
 
-const isDev = process.env.NODE_ENV !== 'production'
+const isDev = process.env.NODE_ENV !== 'production';
 
 // 公共插件配置
 const plugins = [
-  resolve(),
-  commonjs(),
   vue({
-    // Dynamically inject css as a <style> tag
     css: true,
-    // Explicitly convert template to render function
     compileTemplate: true
   }),
   json(),
   nodeResolve(),
   postcss({
-    // 把 css 插入到 style 中
-    // inject: true,
-    // 把 css 放到和js同一目录
+    inject: true,
     extract: true
+  }),
+  babel({
+    babelHelpers: 'bundled',
+    exclude: 'node_modules/**',
+    presets: ['@babel/preset-env']
   })
-]
+];
 
 // 如果不是开发环境，开启压缩
-isDev || plugins.push(terser())
+if (!isDev) {
+  plugins.push(terser());
+}
 
 // packages 文件夹路径
-const root = path.resolve(__dirname, 'packages')
+const root = path.resolve(__dirname, 'packages');
 
-module.exports = fs.readdirSync(root)
-  // 过滤，只保留文件夹
+export default fs.readdirSync(root)
   .filter(item => fs.statSync(path.resolve(root, item)).isDirectory())
-  // 为每一个文件夹创建对应的配置
   .map(item => {
-    const pkg = require(path.resolve(root, item, 'package.json'))
+    const pkg = require(path.resolve(root, item, 'package.json'));
     return {
       input: path.resolve(root, item, 'index.js'),
       output: [
@@ -54,7 +53,12 @@ module.exports = fs.readdirSync(root)
           file: path.join(root, item, pkg.module),
           format: 'es'
         },
+        {
+          name: 'MyLibrary', // 这里是你的库的全局变量名
+          file: path.join(root, item, pkg.browser),
+          format: 'iife'
+        }
       ],
       plugins: plugins
-    }
-  })
+    };
+  });
